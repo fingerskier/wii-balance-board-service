@@ -3,7 +3,7 @@
   "version": "0.3.0",
 
   "bin": {
-    "wii-bb-serv": "bin/index.js"
+    "wii-bbs": "bin/index.js"
   },
 
   "scripts": {
