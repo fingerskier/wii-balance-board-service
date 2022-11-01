@@ -1,7 +1,11 @@
 {
   "name": "wii-balance-board-service",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.3.0",
+
+  "bin": {
+    "wii-bb-serv": "bin/index.js"
+  },
+
   "scripts": {
     "dev": "npx nodemon ./bin/www",
     "start": "node ./bin/www"
