@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "npx nodemon ./bin/www",
+    "build": "npx nexe . --build -o dist/wiibb",
+    "dev": "npx nodemon .",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -14,5 +15,8 @@
     "express-ws": "^5.0.2",
     "morgan": "~1.9.1",
     "wii-balance-board-pi": "^1.1.2"
+  },
+  "devDependencies": {
+    "nexe": "^4.0.0-rc.1"
   }
 }
