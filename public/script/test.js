@@ -1,9 +1,15 @@
-window.addEventListener('load', event=>{
-  const WS = new WebSocket('wss://localhost:3000/wii')
+let container, WS
+
+
+function connect() {
+  WS = new WebSocket('wss://localhost:3030/wii')
 
 
   WS.onmessage = msg=>{
-    console.log('WII::MSG', msg)
+    const dat = JSON.parse(msg.data)
+    console.log('WII::MSG', dat)
+
+    render(dat)
   }
 
 
@@ -15,9 +21,30 @@ window.addEventListener('load', event=>{
   WS.onerror = msg=>{
     console.log('WII::ERR', msg)
   }
+}
 
 
-  document.getElementById('test-btn').addEventListener('click', event=>{
+function render(data) {
+  let markup = ''
+
+  for (let key in data) {
+    markup += `<li>${key}: ${data[key]}</li>`
+  }
+
+  container.innerHTML = markup
+}
+
+
+window.addEventListener('load', event=>{
+  container = document.getElementById('data')
+
+
+  document.getElementById('conx-btn').addEventListener('click', event=>{
+    connect()
+  })
+
+
+  document.getElementById('ping-btn').addEventListener('click', event=>{
     WS.send('begin')
   })
 })

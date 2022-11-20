@@ -7,11 +7,5 @@ let Wii
 
 balanceBoard.connect()
 
-balanceBoard.on("data", data => {
-  console.log(data)
 
-  Wii = data
-})
-
-
-module.exports = Wii
+module.exports = balanceBoard

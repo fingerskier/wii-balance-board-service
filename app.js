@@ -43,28 +43,26 @@ app.use('/users', usersRouter)
 
 
 app.ws('/wii', async(ws,req)=>{
+  let wiiData
+  
+  
   ws.on('message', msg=>{
     try {
-      if (Wii) {
-        ws.send(Wii)
-      } else {
-        ws.send('nil')
-      }
+      console.log('WIIDATA1', wiiData)
+      
+      ws.send(JSON.stringify(wiiData))
     } catch (error) {
+      console.error(error)
       ws.send(`-7`)
     }
   })
 
-
-  const WSTimer = setInterval(() => {
-    try {
-      if (Wii) {
-        ws.send(Wii)
-      }
-    } catch (error) {
-      ws.send(`-7`)
-    }
-  }, 100)
+  
+  Wii.on("data", data => {
+    wiiData = data
+    // ws.send(wiiData)
+    // console.log('WIIDATA2', wiiData)
+  })
 })
 
 
