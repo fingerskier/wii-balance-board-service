@@ -30,9 +30,10 @@ function render(data) {
   for (let key in data) {
     markup += `<li>${key}: ${data[key]}</li>`
   }
-
+  
   container.innerHTML = markup
 }
+
 
 
 window.addEventListener('load', event=>{
