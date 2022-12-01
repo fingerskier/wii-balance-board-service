@@ -2,7 +2,7 @@ let container, WS
 
 
 function connect() {
-  WS = new WebSocket('wss://localhost:3030/wii')
+  WS = new WebSocket(`wss://${window.location.host}/wii`)
 
 
   WS.onmessage = msg=>{

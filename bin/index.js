@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const {app, server} = require('../app');
-const debug = require('debug')('wii-balance-board-service:server');
+const debug = require('debug')('wii-bbs:server');
 const http = require('http');
 
 const port = normalizePort(process.env.PORT || '3030');
@@ -33,6 +33,10 @@ function onError(error) {
   var bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
+    
+  
+  console.error(error)
+  
 
   switch (error.code) {
     case 'EACCES':
@@ -56,5 +60,6 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
+  
   debug('Listening on ' + bind);
 }

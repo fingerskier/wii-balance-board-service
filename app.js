@@ -1,5 +1,6 @@
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const debug = require('debug')('wii-bbs:app')
 const express = require('express')
 const expressWS = require('express-ws')
 const fs = require('fs')
@@ -8,13 +9,17 @@ const logger = require('morgan')
 const path = require('path')
 const Wii = require('./WiiNode')
 
+debug('Wii init')
+
+
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 
 const app = express();
 
 const app_root = path.resolve(__dirname)
-console.log('application root', app_root)
+debug('application root', app_root)
+
 
 // setup SSL for HTTPS & WSS
 const key = fs.readFileSync(`${app_root}/local.key`)
@@ -26,6 +31,7 @@ const server = https.createServer(
   },
   app,
 )
+
 
 require('express-ws')(app, server)
 
@@ -42,13 +48,29 @@ app.use('/', indexRouter)
 app.use('/users', usersRouter)
 
 
+let wiiData
+  
+Wii.on("data", data => {
+  wiiData = data
+  // ws.send(wiiData)
+  debug('wiidata', wiiData)
+})
+
+
 app.ws('/wii', async(ws,req)=>{
-  let wiiData
+  debug('WS conx')
+
+  debug('Wii conx')
   
-  
+
+//  Wii.on("data", data => {
+    // ws.send(wiiData)
+//  })
+
+    
   ws.on('message', msg=>{
     try {
-      console.log('WIIDATA1', wiiData)
+      debug('msg', msg, 'data~', wiiData)
       
       ws.send(JSON.stringify(wiiData))
     } catch (error) {
@@ -56,14 +78,10 @@ app.ws('/wii', async(ws,req)=>{
       ws.send(`-7`)
     }
   })
-
-  
-  Wii.on("data", data => {
-    wiiData = data
-    // ws.send(wiiData)
-    // console.log('WIIDATA2', wiiData)
-  })
 })
+
+
+debug('server setup complete')
 
 
 module.exports = {
