@@ -48,12 +48,12 @@ app.use('/', indexRouter)
 app.use('/users', usersRouter)
 
 
-let wiiData
+let wiiData, prev_wiiData
   
 Wii.on("data", data => {
   wiiData = data
   // ws.send(wiiData)
-  debug('wiidata', wiiData)
+  //debug('wiidata', wiiData)
 })
 
 
@@ -62,10 +62,12 @@ app.ws('/wii', async(ws,req)=>{
 
   debug('Wii conx')
   
-
-//  Wii.on("data", data => {
-    // ws.send(wiiData)
-//  })
+  
+  setInterval(()=>{
+    if ((ws.readyState === 1) && (wiiData !== prev_wiiData)) {
+      ws.send(JSON.stringify(wiiData))
+    }
+  }, 234)
 
     
   ws.on('message', msg=>{

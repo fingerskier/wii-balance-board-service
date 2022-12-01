@@ -7,7 +7,7 @@ function connect() {
 
   WS.onmessage = msg=>{
     const dat = JSON.parse(msg.data)
-    console.log('WII::MSG', dat)
+    //console.log('WII::MSG', dat)
 
     render(dat)
   }
