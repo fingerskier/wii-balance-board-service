@@ -5,7 +5,4 @@ const balanceBoard = new BalanceBoard()
 let Wii
 
 
-balanceBoard.connect()
-
-
 module.exports = balanceBoard

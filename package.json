@@ -8,9 +8,10 @@
 
   "scripts": {
     "build": "npx nexe . --build -o dist/wiibb",
-    "dev": "npx nodemon .",
-    "start": "node ./bin/www"
+    "dev": "set DEBUG=wii-balance-board-service:*&&npx nodemon ./bin",
+    "start": "node ./bin"
   },
+
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
@@ -20,6 +21,7 @@
     "morgan": "~1.9.1",
     "wii-balance-board-pi": "^1.1.2"
   },
+
   "devDependencies": {
     "nexe": "^4.0.0-rc.1"
   }

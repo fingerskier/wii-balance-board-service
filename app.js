@@ -6,7 +6,7 @@ const fs = require('fs')
 const https = require('https')
 const logger = require('morgan')
 const path = require('path')
-const Wii = require('./WiiNode')
+const BalanceBoard = require('./WiiBalanceBoard')
 
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
@@ -32,19 +32,19 @@ require('express-ws')(app, server)
 
 app.use(logger('dev'))
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-app.use(cookieParser())
+// app.use(express.urlencoded({ extended: false }))
+// app.use(cookieParser())
 app.use(cors())
 
-app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/', indexRouter)
-app.use('/users', usersRouter)
-
+app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.ws('/wii', async(ws,req)=>{
   let wiiData
+
+  BalanceBoard.connect()
   
+  console.log('WII:CONX')
   
   ws.on('message', msg=>{
     try {
@@ -58,10 +58,10 @@ app.ws('/wii', async(ws,req)=>{
   })
 
   
-  Wii.on("data", data => {
+  BalanceBoard.on("data", data => {
     wiiData = data
-    // ws.send(wiiData)
-    // console.log('WIIDATA2', wiiData)
+    ws.send(wiiData)
+    console.log('WIIDATA2', wiiData)
   })
 })
 

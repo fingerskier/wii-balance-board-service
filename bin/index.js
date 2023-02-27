@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
-const {app, server} = require('../app');
-const debug = require('debug')('wii-balance-board-service:server');
-const http = require('http');
+const {app, server} = require('../app')
+const debug = require('debug')('wii-balance-board-service:server')
+// const http = require('http');
 
-const port = normalizePort(process.env.PORT || '3030');
+const port = normalizePort(process.env.PORT || '3030')
+
 
 app.set('port', port);
 
+debug(`Port set to ${port}`)
 
 server.listen(port);
 server.on('error', onError);
@@ -52,9 +54,11 @@ function onError(error) {
 
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
+  const addr = server.address()
+
+  const bind = typeof addr === 'string'
     ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+    : 'port ' + addr.port
+  
+  debug('Listening on ' + bind)
 }
