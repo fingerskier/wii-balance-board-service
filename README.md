@@ -1,6 +1,8 @@
 # wii-balance-board-service
 Wii balance-board service
 
+Derived from [wii-balance-board-pi](https://www.npmjs.com/package/wii-balance-board-pi)
+
 
 ## Prerequisites
 
@@ -23,3 +25,10 @@ This service runs on `https` and `wss`.
 3. Refresh app-page
 4. Click connect & wait a bit
 5. Ping
+## Usage
+
+Pair the balance board in the OS.
+
+Running this node app provides a web-server with a web-socket the spits out balance board data.
+
+Look at `\public\test.html` for an example.

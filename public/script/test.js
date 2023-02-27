@@ -2,12 +2,12 @@ let container, WS
 
 
 function connect() {
-  WS = new WebSocket('wss://localhost:3030/wii')
+  WS = new WebSocket(`wss://${window.location.host}/wii`)
 
 
   WS.onmessage = msg=>{
     const dat = JSON.parse(msg.data)
-    console.log('WII::MSG', dat)
+    //console.log('WII::MSG', dat)
 
     render(dat)
   }
@@ -30,9 +30,10 @@ function render(data) {
   for (let key in data) {
     markup += `<li>${key}: ${data[key]}</li>`
   }
-
+  
   container.innerHTML = markup
 }
+
 
 
 window.addEventListener('load', event=>{

@@ -1,6 +1,6 @@
 {
   "name": "wii-balance-board-service",
-  "version": "0.3.0",
+  "version": "0.5.0",
 
   "bin": {
     "wii-bbs": "bin/index.js"
@@ -8,8 +8,8 @@
 
   "scripts": {
     "build": "npx nexe . --build -o dist/wiibb",
-    "dev": "set DEBUG=wii-balance-board-service:*&&npx nodemon ./bin",
-    "start": "node ./bin"
+    "dev": "DEBUG=wii-bbs:* npx nodemon ./bin/index.js",
+    "start": "node ./bin/index.js"
   },
 
   "dependencies": {
